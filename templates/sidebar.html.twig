@@ -1,0 +1,266 @@
+ <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="#" class="brand-link">
+      <img src="{{asset("dist/img/cdpLogo.jpg")}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">CdPFinApp</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <a href="{{path('profil_avatar')}}">
+        <div class="image">
+          <img src="{{asset("uploads/avatar/"~ app.user.avatar)}}" class="img-circle elevation-2" alt="User Image">
+        </div>
+      </a>
+        <div class="info">
+          <a href="#" class="d-block">{{app.user.fname }} {{app.user.lname }}</a>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+    {% if is_granted('ROLE_ADMIN') %}
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fas fa-cogs"></i>
+              <p>
+                Administration
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+             <ul class="nav nav-treeview">
+             <li class="nav-item">
+                <a href="{{path('admin_users')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Utilisateurs</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{path('admin_index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Parametrage</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+           <li class="nav-item">
+            <a href="#" class="nav-link">
+             <i class="fas fa-piggy-bank"></i>
+              <p>
+                Trésorerie
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{path('finance_index')}}" class="nav-link">
+                  <i class="fas fa-tachometer-alt"></i>
+                  <p>Dashboard</p>
+                </a>
+              </li>
+              
+              <li class="nav-item">
+                 <a href="{{path('finance_bplanning')}}" class="nav-link">
+                  <i class="fas fa-funnel-dollar"></i>
+                  <p>Budget Planning</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fas fa-file-archive"></i>
+              <p>
+                Secrétariat
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>MoM</p>
+                </a>
+              </li>
+              
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Autres</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+         <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fas fa-file"></i>
+              <p>
+                Projets
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Créer Projet</p>
+                </a>
+              </li>
+              
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Projet Tracker</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+           
+         {% endif %}
+
+           {% if is_granted('ROLE_FINANCE') %}
+         
+           <li class="nav-item">
+            <a href="#" class="nav-link">
+             <i class="fas fa-piggy-bank"></i>
+              <p>
+                Trésorerie
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{path('finance_index')}}" class="nav-link">
+                  <i class="fas fa-tachometer-alt"></i>
+                  <p>Dashboard</p>
+                </a>
+              </li>
+              
+              <li class="nav-item">
+                <a href="{{path('finance_bplanning')}}" class="nav-link">
+                  <i class="fas fa-funnel-dollar"></i>
+                  <p>Budget Planning</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+         
+         <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fas fa-file"></i>
+              <p>
+                Projets
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Créer Projet</p>
+                </a>
+              </li>
+              
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Projet Tracker</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+           
+         {% endif %}
+
+
+          {% if is_granted('ROLE_USER') %}
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fas fa-funnel-dollar"></i>
+              <p>
+                Contribution
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{path('profil_index')}}" class="nav-link">
+                  <i class="fas fa-circle nav-icon"></i>
+                  <p>Mes Contributions</p>
+                </a>
+              </li>
+              
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fas fa-circle nav-icon"></i>
+                  <p>Mes Requisitions</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+           <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fas fa-file-archive"></i>
+              <p>
+                Reporting
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Documents</p>
+                </a>
+              </li>
+              
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Redevabilité</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+         {% endif %}
+
+
+          
+
+          <!--<li class="nav-header">Legende</li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon far fa-circle text-danger"></i>
+              <p class="text">Rejeté</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon far fa-circle text-warning"></i>
+              <p>En Attente</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon far fa-circle text-info"></i>
+              <p>Aprouvé</p>
+            </a>
+          </li>-->
+        </ul>
+        
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>

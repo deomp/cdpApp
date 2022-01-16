@@ -1,0 +1,174 @@
+ {% extends 'template.html.twig' %}
+
+{% block title %}Créer un membre {% endblock %}
+
+{% block body %}
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+    
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3">
+
+            <!-- Profile Image -->
+            <div class="card card-primary card-outline">
+              <div class="card-body box-profile">
+                <div class="text-center">
+                  <img class="profile-user-img img-fluid img-circle"
+                       src="{{asset("dist/img/"~ app.user.avatar)}}"
+                       alt="User profile picture">
+                </div>         
+                               
+                <h3 class="profile-username text-center">{{ app.user.fname }} {{ app.user.lname }}</h3>
+                <div class="text-muted small text-center">{{ app.user.email }}</div>
+                <div class="text-muted small text-center" >Membre CdP depuis {{ app.user.createdAt | date("m/d/Y") }}</div>
+                <div class="text-muted small text-center">Identifiant <strong>{{ app.user.matricule }}</strong></div><br>
+
+                {% if not app.user.contributions %}
+                <ul class="list-group list-group-unbordered mb-3">
+                
+                <li class="list-group-item">
+                <span class="text-muted text-sm">Merci de commencer par une contributions</span> 
+
+                    </li>
+                    </ul>
+               {% else %}
+               
+                <ul class="list-group list-group-unbordered mb-3">
+                <li class="list-group-item">
+                     <span class="text-muted text-sm">Validé</span> <span class="float-right text-success text-sm"><i class="fas fa-arrow-up"></i>
+                     {{getAppInfo[6]|format_currency('USD', {rounding_mode: 'floor'}) }}</span>
+                    </li>
+                <li class="list-group-item">
+                      <span class="text-muted text-sm">En Attente</span> <span class="float-right text-warning text-sm"><i class="fas fa-arrow-right"></i>{{getAppInfo[7]|format_currency('USD', {rounding_mode: 'floor'}) }}</span>
+                  </li>   
+                    
+                  <li class="list-group-item">
+                      <span class="text-muted text-sm">RaP</span> <span class="float-right text-danger text-sm"> <i class="fas fa-arrow-down"></i>{{getAppInfo[8]|format_currency('USD', {rounding_mode: 'floor'}) }}</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="text-muted text-sm">Arriéré</span> <span class="float-right text-muted text-sm">
+                    {{getAppInfo[1]}} mois</span>
+                     <p class="text-muted small text-center ">
+                     
+                     {% set value =  getAppInfo[2] %}
+                      {% if value == '1' %} Janvier
+                      {% elseif value == '2' %} Février
+                      {% elseif value == '3' %} Mars
+                      {% elseif value == '4' %} Avril
+                      {% elseif value == '5' %} Mai
+                      {% elseif value == '6' %} Juin
+                      {% elseif value == '7' %} Juillet
+                      {% elseif value == '8' %} Aout
+                      {% elseif value == '9' %} Septembre
+                      {% elseif value == '10' %} Octobre
+                      {% elseif value == '11' %} Novembre
+                      {% elseif value == '12' %} Décembre
+                      {% endif %}
+                     {{getAppInfo[3]}} à 
+                     {% set value =  getAppInfo[4] %}
+                      {% if value == '1' %} Janvier
+                      {% elseif value == '2' %} Février
+                      {% elseif value == '3' %} Mars
+                      {% elseif value == '4' %} Avril
+                      {% elseif value == '5' %} Mai
+                      {% elseif value == '6' %} Juin
+                      {% elseif value == '7' %} Juillet
+                      {% elseif value == '8' %} Aout
+                      {% elseif value == '9' %} Septembre
+                      {% elseif value == '10' %} Octobre
+                      {% elseif value == '11' %} Novembre
+                      {% elseif value == '12' %} Décembre
+                      {% elseif value == '0' %} Décembre
+                      {% endif %} {{getAppInfo[5]}}</p>
+                  </li>
+                </ul>
+ {% endif %}
+                
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+            
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-9">
+            <div class="card card-primary card-outline">
+              <div class="card-header p-2">
+                <i class="fas fa-funnel-dollar"></i> Mes Contributions
+              </div><!-- /.card-header -->
+              <div class="card-body">
+                     <table class="table table-striped" style='text-align:center; font-size: 14.5px;'>
+                  <thead>
+                    <tr>
+                       <th style="width: 10px" align="center" valign="center">#</th>
+                      <th>Periode</th>
+                      <th>Montant</th>
+                      <th>Mode de Paiement</th>
+                      <th>Date de Payement</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                   {% if app.user.contributions %}
+                   {% for myContrib in app.user.contributions %}
+                    <tr>
+                      <td><a href="#">{{myContrib.tid}}</a></td>
+                     <td>{{myContrib.period}} </td>
+                      <td >{{myContrib.amount |format_currency('USD', {rounding_mode: 'floor'})}}</td>
+                      <td>{{myContrib.paymentmode }}</td>
+                      <td>{{myContrib.createdAt |date("d-m-Y")}}</td>
+                       <td>
+                      {% if myContrib.status == '0'%}
+                       <i class="nav-icon far fa-circle text-warning">
+                      {% elseif myContrib.status == '1' %}
+                       <i class="nav-icon far fa-circle text-primary">
+                       {% elseif myContrib.status == '2' %}
+                       <i class="nav-icon far fa-circle text-success">
+                        {% else %}
+                         <i class="nav-icon far fa-circle text-danger">
+                      {% endif %}</td>
+                    </tr>
+                    {% endfor %}
+                     {% else %}
+                     <tr>
+                   <td colspan="6" style='text-align:center; vertical-align:middle'>Aucune contribution n'a été trouvée.  </td>
+                   </tr>
+                      {% endif %}
+                  </tbody>
+                </table>
+              
+              </div><!-- /.card-body -->
+              <div class="card-footer clearfix ">
+              <a href="{{path('profil_contribute')}}" class="btn btn-info btn-flat btn-sm">Contribuer</a>
+   
+
+                <span class="float-right">
+                <i class="nav-icon far fa-circle text-warning small"></i><span class="text-muted small" style="padding-right:20px;"> Soumis</span>
+                <i class="nav-icon far fa-circle text-primary small"></i><span class="text-muted small" style="padding-right:20px;"> En Cours</span>
+                <i class="nav-icon far fa-circle text-success small"></i><span class="text-muted small" style="padding-right:20px;"> Approuvée</span>
+                <i class="nav-icon far fa-circle text-danger small"></i><span class="text-muted small" > Rejetée</span>
+              </span>
+            
+              </div>
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+{% endblock %}

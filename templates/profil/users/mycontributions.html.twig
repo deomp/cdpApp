@@ -1,0 +1,52 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}MyContrib{% endblock %}
+
+{% block body %}
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+
+    <h1>Contribution of  {{ app.user.username }}</h1>
+
+   <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th style="width: 10px">Transaction ID</th>
+                      <th>Periode</th>
+                      <th>Montant</th>
+                      <th>Mode de Paiement</th>
+                      <th>Date de Payement</th>
+                      <th>Status</th>
+                     
+                    </tr>
+                  </thead>
+                
+                   {% for myContrib in app.user.contributions %}
+                  <tbody>
+                    <tr>
+                      <td><a href="#">{{myContrib.id}}</a></td>
+                      <td>{{myContrib.period}} </td>
+                      <td>{{myContrib.amount}}</td>
+                      <td>{{myContrib.paymentmode }}</td>
+                      <td>{{myContrib.createdAt |date("m/d/Y")}}</td>
+                      <td>
+                      {% if myContrib.status == '0'%}
+                      <img src="{{asset("dist/img/red.png")}}" alt="RedIcon" width='16' height='16' >En Attente
+                      {% elseif myContrib.status == '1' %}
+                       <img src="{{asset("dist/img/green.png")}}" alt="GreenIcon" width='16' height='16' >En Cours
+                       {% elseif myContrib.status == '2' %}
+                       <img src="{{asset("dist/img/green.png")}}" alt="GreenIcon" width='16' height='16' >Approuvé
+                        {% else %}
+                         <img src="{{asset("dist/img/green.png")}}" alt="GreenIcon" width='16' height='16' >Rejeté
+                      {% endif %}</td>
+            
+                    </tr>
+                    {% else %}
+                   <tr>
+                   <td colspan="5">Il n'a aucun utilisateur inscrit.</td>
+                   </tr>
+                  </tbody>
+                  {% endfor %}
+                </table>
+{% endblock %}

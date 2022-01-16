@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+<body class="hold-transition login-page">
+
+<div class="login-box">
+  <!-- /.login-logo -->
+  <div class="card card-outline card-warning">
+    <div class="card-header text-center">
+     <div class="image">
+          <img src="{{asset("dist/img/cdpLogo.jpg")}}" class="img-circle elevation-2" alt="CdPLogo" with="120px" height="120px" style="margin-top:-75px;">
+        </div>
+      <a href="../../index2.html" class="h1"><b>my</b>CdP</a>| FinApp
+    </div>
+    <div class="card-body">
+      <p class="login-box-msg">Connectez-vous!</p>
+
+      
+<form method="post">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {% if app.user %}
+        <div class="mb-3">
+            <center>Vous êtes déjà connecté <b>{{ app.user.username }}</b>, <a href="{{ path('app_logout') }}">Logout</a></center>
+        </div>
+    {% endif %}
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Nom d'utilisateur" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" placeholder="Mot de passe" type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+         <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}">
+        <div class="row">
+         {#
+        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+        See https://symfony.com/doc/current/security/remember_me.html
+
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" name="_remember_me"> Remember me
+            </label>
+        </div>
+    #}
+          <div class="col-8">
+            <div class="icheck-primary">
+              <input type="checkbox" id="remember">
+              <label for="remember">
+                Se souvenir de moi
+              </label>
+            </div>
+          </div>
+          <!-- /.col -->
+          <div class="col-4">
+            <button type="submit" class="btn btn-outline-warning btn-block">Accedez</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+
+      
+      <p class="mb-1">
+        <span class="text-muted"><a href="forgot-password.html">Mot de passe oublié</a></span>
+      </p>
+    
+    </div>
+    <!-- /.card-body -->
+  </div>
+  <!-- /.card -->
+</div>
+<!-- /.login-box -->
+
+<!-- jQuery -->
+<script src="../../plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../../dist/js/adminlte.min.js"></script>
+{% endblock %}

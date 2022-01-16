@@ -1,0 +1,106 @@
+{% extends 'template.html.twig' %}
+{% block body %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- Default box -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Panel d'Administration</h3>
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+              <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-body p-0">
+                
+  <div class="container-fluid">
+        <h5 class="mb-2"></h5>
+        <div class="row">
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+              <!--<span class="info-box-icon bg-primary"><i class="fas fa-users"></i></span>-->
+              <span class="info-box-icon bg-default"><a href="{{path('admin_users')}}"><i class="fas fa-users"></i></a></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Liste</span>
+                <span class="info-box-number">Utilisateurs</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+              <!--<span class="info-box-icon bg-success"><i class="fas fa-user-plus"></i></span>-->
+              <span class="info-box-icon bg-default"><a href="{{path('app_register')}}"><i class="fas fa-user-plus"></i></a></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Ajouter</span>
+                <span class="info-box-number">Membre</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+              <!--<span class="info-box-icon bg-warning"><i class="fas fa-piggy-bank"></i></span>-->
+              <span class="info-box-icon bg-default"><i class="fas fa-piggy-bank"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Gerer</span>
+                <span class="info-box-number">Canaux</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+              <!--<span class="info-box-icon bg-danger"><i class="fas fa-traffic-light"></i></span>-->
+               <span class="info-box-icon bg-default"><i class="fas fa-traffic-light"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Gerer</span>
+                <span class="info-box-number">Parametrage</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+        Paramettrage: Fixer année Financiere, Fixer montant de la cotisation, Fixer debut des cotisation, fixer pourcentage consentit
+        </div>
+        <!-- /.card-footer-->
+      </div>
+      <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+{% endblock %}

@@ -1,0 +1,205 @@
+ {% extends 'template.html.twig' %}
+
+{% block title %}Créer un membre {% endblock %}
+
+{% block body %}
+
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+    {% for feedback in app.flashes('message') %}
+       <div class="callout callout-success  role="alert"">
+                  <p>{{ feedback }}</p>
+                </div>
+    {% endfor %}
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3">
+
+            <!-- Profile Image -->
+            <div class="card card-primary card-outline">
+              <div class="card-body box-profile">
+                <div class="text-center">
+                <a href="{{path('profil_avatar')}}">
+                  <img class="profile-user-img img-fluid img-circle"
+                       src="{{asset("uploads/avatar/"~ app.user.avatar)}}"
+                       alt="User profile picture"></a>
+                </div>         
+                               
+                <h3 class="profile-username text-center">{{ app.user.fname }} {{ app.user.lname }}</h3>
+                <div class="text-muted small text-center">{{ app.user.email }}</div>
+                <div class="text-muted small text-center" >Membre CdP depuis {{ app.user.createdAt | date("d/m/Y") }}</div>
+                <div class="text-muted small text-center">Identifiant <strong>{{ app.user.matricule }}</strong></div><br>
+               {% if getmyContribs %}
+                 <ul class="list-group list-group-unbordered mb-3">
+                <li class="list-group-item">
+                     <span class="text-muted text-sm">Validé <span class="badge badge-info right">{{getAppInfo[9]}}</span></span> <span class="float-right text-success text-sm"><i class="fas fa-arrow-up"></i>
+                {{getAppInfo[6]|format_currency('USD', {rounding_mode: 'floor'})}} </span>
+                    </li>
+                <li class="list-group-item">
+                      <span class="text-muted text-sm">En Attente </span> <span class="float-right text-warning text-sm"><i class="fas fa-arrow-right"></i>{{getAppInfo[7]|format_currency('USD', {rounding_mode: 'floor'}) }}</span>
+                  </li>   
+                    
+                  <li class="list-group-item">
+                      <span class="text-muted text-sm">RaP</span> <span class="float-right text-danger text-sm"> <i class="fas fa-arrow-down"></i>{{getAppInfo[8]|format_currency('USD', {rounding_mode: 'floor'}) }}</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="text-muted text-sm">Arriéré</span> <span class="float-right text-muted text-sm">
+                    {{getAppInfo[1]}} mois</span>
+                     <p class="text-muted small text-center ">
+                     
+                     {% set value =  getAppInfo[2] %}
+                      {% if value == '1' %} Janvier
+                      {% elseif value == '2' %} Février
+                      {% elseif value == '3' %} Mars
+                      {% elseif value == '4' %} Avril
+                      {% elseif value == '5' %} Mai
+                      {% elseif value == '6' %} Juin
+                      {% elseif value == '7' %} Juillet
+                      {% elseif value == '8' %} Aout
+                      {% elseif value == '9' %} Septembre
+                      {% elseif value == '10' %} Octobre
+                      {% elseif value == '11' %} Novembre
+                      {% elseif value == '12' %} Décembre
+                      {% endif %}
+                     {{getAppInfo[3]}} à 
+                     {% set value =  getAppInfo[4] %}
+                      {% if value == '1' %} Janvier
+                      {% elseif value == '2' %} Février
+                      {% elseif value == '3' %} Mars
+                      {% elseif value == '4' %} Avril
+                      {% elseif value == '5' %} Mai
+                      {% elseif value == '6' %} Juin
+                      {% elseif value == '7' %} Juillet
+                      {% elseif value == '8' %} Aout
+                      {% elseif value == '9' %} Septembre
+                      {% elseif value == '10' %} Octobre
+                      {% elseif value == '11' %} Novembre
+                      {% elseif value == '12' %} Décembre
+                      {% elseif value == '0' %} Décembre
+                      {% endif %} {{getAppInfo[5]}}</p>
+                  </li>
+                </ul>
+                {% endif %}
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+            
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-9">
+            <div class="card card-primary card-outline">
+              <div class="card-header p-2">
+                <i class="fas fa-funnel-dollar"></i> Mes Contributions
+              </div><!-- /.card-header -->
+              <div class="card-body">
+            <table id="example1" class="table table-bordered table-striped" style='text-align:center; font-size: 14.5px;'>
+                  <thead>
+                  <tr>
+                  <th style="width: 10px" align="center" valign="center">#</th>
+                     <th>Periode</th>
+                      <th>Montant</th>
+                      <th>Payé via</th>
+                      <th>Effectué</th>
+                      <th>Status</th>
+                  </tr>
+                  </thead>
+                   <tbody>
+                   {% if getmyContribs %}
+                   {% for getmyContrib in getmyContribs %}
+                    <tr>
+                      <td><a href="#">{{getmyContrib.tid}}</a></td>
+                     <td>
+                     {% set paidPeriod = getmyContrib.period|split('-') %}
+                       {% if paidPeriod[0] == '1' %}
+                       Janvier {{paidPeriod[1]}}
+                       {% elseif paidPeriod[0] == '2' %}
+                       Février {{paidPeriod[1]}}
+                       {% elseif paidPeriod[0] == '3' %}
+                       Mars {{paidPeriod[1]}}
+                       {% elseif paidPeriod[0] == '4' %}
+                       Avril {{paidPeriod[1]}}
+                       {% elseif paidPeriod[0] == '5' %}
+                       Mai {{paidPeriod[1]}}
+                       {% elseif paidPeriod[0] == '6' %}
+                       Juin {{paidPeriod[1]}}
+                       {% elseif paidPeriod[0] == '7' %}
+                       Juillet {{paidPeriod[1]}}
+                       {% elseif paidPeriod[0] == '8' %}
+                       Août {{paidPeriod[1]}}
+                       {% elseif paidPeriod[0] == '9' %}
+                       Septembre {{paidPeriod[1]}}
+                       {% elseif paidPeriod[0] == '10' %}
+                       Octobre {{paidPeriod[1]}}
+                       {% elseif paidPeriod[0] == '11' %}
+                       Novembre {{paidPeriod[1]}}
+                       {% else %}
+                       Décembre {{paidPeriod[1]}}
+                       {% endif %}
+                      </td>
+                      <td >{{getmyContrib.amount |format_currency('USD', {rounding_mode: 'floor'})}}</td>
+                      <td>{{getmyContrib.paymentmode }}</td>
+                      <td>{{getmyContrib.createdAt |date("d-m-Y")}}</td>
+                       <td>
+                      {% if getmyContrib.status == '0'%}
+                       <i class="nav-icon far fa-circle text-warning">
+                      {% elseif getmyContrib.status == '1' %}
+                       <i class="nav-icon far fa-circle text-primary">
+                       {% elseif getmyContrib.status == '2' %}
+                       <i class="nav-icon far fa-circle text-success">
+                        {% else %}
+                         <i class="nav-icon far fa-circle text-danger">
+                      {% endif %}</td>
+                    </tr>
+                    {% endfor %}
+                     {% else %}
+                     <tr>
+                   <td colspan="6" style='text-align:center; vertical-align:middle'>Aucune contribution n'a été trouvée.  </td>
+                   </tr>
+                      {% endif %}
+                  </tbody>
+                 
+                </table>
+               
+              </div><!-- /.card-body -->
+              <div class="card-footer clearfix ">
+              <a href="{{path('profil_contribute')}}" class="btn btn-info btn-flat btn-sm">Contribuer</a>
+   
+          {% if getmyContribs %}
+                <span class="float-right">
+                <i class="nav-icon far fa-circle text-warning small"></i><span class="text-muted small" style="padding-right:20px;"> Soumis</span>
+                <i class="nav-icon far fa-circle text-primary small"></i><span class="text-muted small" style="padding-right:20px;"> En Cours</span>
+                <i class="nav-icon far fa-circle text-success small"></i><span class="text-muted small" style="padding-right:20px;"> Approuvée</span>
+                <i class="nav-icon far fa-circle text-danger small"></i><span class="text-muted small" > Rejetée</span>
+              </span>
+            
+              </div>
+            </div>
+             {% endif %}
+
+             
+                               
+             
+            {# foo contains ['one', 'two', 'three'] #}
+
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+{% endblock %}

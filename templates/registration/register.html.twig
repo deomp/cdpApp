@@ -1,0 +1,64 @@
+{% extends 'template.html.twig' %}
+{% form_theme registrationForm 'bootstrap_4_layout.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+       
+       
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- Default box -->
+      <div class="card ">
+        <div class="card-body">
+         <div class="register-box mx-auto ">
+  <div class="card card-outline card-primary">
+    
+    <div class="card-body">
+      <p class="login-box-msg">Enregistrer un nouveau membre</p>
+
+   {{ form_start(registrationForm) }}
+         {{ form_row(registrationForm.fname, )}}
+         {{ form_row(registrationForm.lname)}}
+        {{ form_row(registrationForm.email)}}
+      <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block">Créer</button>
+          </div>
+        
+    {{ form_end(registrationForm) }}
+
+    </div>
+    <!-- /.form-box -->
+  </div><!-- /.card -->
+</div>
+<!-- /.register-box -->
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+         
+        </div>
+        <!-- /.card-footer-->
+      </div>
+      <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends 'template.html.twig' %}
+{% block body %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <!-- Default box -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Gestion des Membres</h3>
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+              <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-body p-0">
+                <table class="table table-striped" style='text-align:center; font-size: 15px;'>
+                  <thead>
+                    <tr>
+                      <th style="width: 10px">UID</th>
+                      <th>Nom</th>
+                      <th>Username</th>
+                      <th>Membre depuis</th>
+                      <th>Role</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  
+                  <tbody>
+                   {% if app.user %}
+                  {% for user in users %}
+                    <tr>
+                      <td><a href="#">{{user.matricule}}</a></td>
+                      <td>{{user.fname}} {{user.lname}}</td>
+                      <td>{{user.username}}</td>
+                      <td>{{user.createdAt |date("m/d/Y")}}</td>
+                      <td>
+                      {% for role in user.roles %}
+                          {% if role == "ROLE_USER" %}
+                            <img src="{{asset("dist/img/icones/icons8-user-64.png")}}" alt="RedIcon" width='16' height='16' >
+                          {% elseif role == "ROLE_ADMIN" %}
+                            <img src="{{asset("dist/img/icones/icons8-admin-settings-male-50.png")}}" alt="RedIcon" width='16' height='16' >
+                          {% endif %}
+                      {% endfor %}
+                      </td>
+                      <td>
+                      {% if user.isactive == '0'%}
+                      <img src="{{asset("dist/img/red.png")}}" alt="RedIcon" width='16' height='16' ></td>
+                      {% else %}
+                       <img src="{{asset("dist/img/green.png")}}" alt="GreenIcon" width='16' height='16' ></td>
+                      {% endif %}
+                      <td>
+                    <a href="{{path('admin_edit_user', {'id': user.id})}}">
+                    <img src="{{asset("dist/img/edit.png")}}" alt="Edit Icon" width='20' height='20' ></a>
+                    <img src="{{asset("dist/img/delete.png")}}" alt="Delete Icon" width='20' height='20'>
+                        </td>
+                    </tr>
+                     {% endfor %}
+                    {% else %}
+                   <tr>
+                   <td colspan="7">Il n'a aucun utilisateur inscrit.</td>
+                   </tr>
+                   {% endif %}
+                  </tbody>
+               
+                </table>
+              
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+         <a href="{{path('app_register')}}" class="btn btn-info btn-flat btn-sm"><i class="fa fa-user-plus" aria-hidden="true"></i> Ajouter</a>
+     
+        </div>
+        <!-- /.card-footer-->
+      </div>
+      <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+{% endblock %}

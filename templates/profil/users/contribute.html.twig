@@ -1,0 +1,86 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+
+
+    <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+       <div class="container-fluid">
+        <div class="row">
+            
+          <!-- left column -->
+          <div class="col-md-6 offset-3 mx-auto">
+          <div class="card alert alert-dismissible">
+                <blockquote class="quote-warning">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                   <h5 id="note">Note!</h5>
+                  <p>Votre contribution sera assignée pour</p>
+                   <small><span id='info'>      
+                  {% set value =  getAppInfo[2] %}
+                      {% if value == '1' %} Janvier
+                      {% elseif value == '2' %} Février
+                      {% elseif value == '3' %} Mars
+                      {% elseif value == '4' %} Avril
+                      {% elseif value == '5' %} Mai
+                      {% elseif value == '6' %} Juin
+                      {% elseif value == '7' %} Juillet
+                      {% elseif value == '8' %} Aout
+                      {% elseif value == '9' %} Septembre
+                      {% elseif value == '10' %} Octobre
+                      {% elseif value == '11' %} Novembre
+                      {% elseif value == '12' %} Décembre
+                      {% endif %} {{getAppInfo[3]}}
+                       </span>
+                 </small>
+                </blockquote>
+              </div>
+
+                
+                
+            <!-- general form elements -->
+            <div class="card card-info">
+              <div class="card-header">
+                <h3 class="card-title">Contribution</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              
+                <div class="card-body" id="cardelt">
+                {{ form_start(userForm) }}
+                <div class="col">{{ form_row(userForm.amount, {'id': 'amount', 'attr': { 'onChange': 'getMonths()','onfocusout': 'clearInput()'}})}}</div>
+                
+               <div class="col">{{ form_row(userForm.period, {'id': 'period', 'value':getAppInfo[2] ~ "," ~ getAppInfo[3] }) }}</div>
+                <div class="col">{{ form_row(userForm.paymentmode, {
+                    label: 'Mode de Paiement'
+                }) }}</div>
+                <div class="col">{{ form_row(userForm.proof) }}</div>
+      </div>
+
+            <div class="card-footer">
+                  <button type="submit" class="btn btn-info">Soumettre</button>
+                </div>
+               {{ form_end(userForm) }}
+            </div>
+           </div>
+           </div>
+           </div> 
+      
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+{% endblock %}
